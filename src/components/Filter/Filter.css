@@ -1,0 +1,15 @@
+.input {
+  width: 200px;
+  height: 20px;
+}
+
+.input:focus {
+  border: 3px solid rgb(78, 78, 240);
+}
+.label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  font-size: 24px;
+  font-weight: 700;
+}
