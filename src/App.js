@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { nanoid } from "nanoid";
 import "./App.css";
-import ContactForm from "./components/ContactForm/ContactForm";
-import ContactList from "./components/ContactList/ContactList";
-import Filter from "./components/Filter/Filter";
+import ContactForm from "./components/ContactForm";
+import ContactList from "./components/ContactList";
+import Filter from "./components/Filter";
 class Phonebook extends Component {
   state = {
     contacts: [
@@ -16,17 +16,22 @@ class Phonebook extends Component {
   };
 
   addSubmitData = ({ name, number }) => {
-    console.log({ name, number });
+    const friendName = name;
+    if (this.state.contacts.some(({ name }) => name === friendName)) {
+      alert(`${name} is already in contact`);
+      return;
+    }
     const contact = {
       id: nanoid(),
       name,
       number,
     };
-    this.setState(({ contacts }) => ({
-      contacts: [...contacts, contact],
-    }));
+    this.setState(({ contacts }) => {
+      return { contacts: [...contacts, contact] };
+    });
   };
   changeFilter = (e) => {
+    console.log(e);
     this.setState({ filter: e.target.value });
   };
   getFilterSearch = () => {
@@ -36,6 +41,12 @@ class Phonebook extends Component {
     return contacts.filter((contact) =>
       contact.name.toLowerCase().includes(normalizedFilter)
     );
+  };
+  deleteContact = (nameId) => {
+    console.log(nameId);
+    this.setState((prev) => ({
+      contacts: prev.contacts.filter((contact) => contact.id !== nameId),
+    }));
   };
 
   render() {
@@ -47,18 +58,13 @@ class Phonebook extends Component {
         <ContactForm onSubmit={this.addSubmitData} />
         <h2 className="title">Contacts</h2>
         <Filter value={filter} onChange={this.changeFilter} />
-        <ContactList contacts={filterSearch} />
+        <ContactList
+          contacts={filterSearch}
+          onDeleteContact={this.deleteContact}
+        />
       </div>
     );
   }
 }
 
 export default Phonebook;
-// {/* <div>
-//   <h1>Phonebook</h1>
-//   <ContactForm ... />
-
-//   <h2>Contacts</h2>
-//   <Filter ... />
-//   <ContactList ... />
-// </div> */}

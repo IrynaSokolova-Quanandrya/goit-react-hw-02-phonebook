@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import "../Filter/Filter.css";
+import "../styles/input.css";
+import "../styles/button.css";
+
 export default class Filter extends Component {
   render() {
     return (
-      <label className="label">
+      <label className="label filter__label">
         Find contacts by name
         <input
           className="input"
