@@ -29,7 +29,7 @@ export default class ContactForm extends Component {
     return (
       <form className="form" onSubmit={this.handleSubmit}>
         <Input
-          labelName={name}
+          labelName="Name"
           value={name}
           onChange={this.handleChange}
           type="text"
@@ -40,7 +40,7 @@ export default class ContactForm extends Component {
           required
         />
         <Input
-          labelName={number}
+          labelName="Number"
           value={number}
           onChange={this.handleChange}
           type="tel"
